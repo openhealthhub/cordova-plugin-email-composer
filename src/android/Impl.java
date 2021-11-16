@@ -86,7 +86,7 @@ class Impl {
             targets.add(target.setPackage(clientId));
         }
 
-        return Intent.createChooser(targets.isEmpty() ? getEmailIntent() : targets.remove(0), header)
+        return Intent.createChooser(targets.isEmpty() ? draft : targets.remove(0), header)
                 .putExtra(EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[0]));
     }
 
