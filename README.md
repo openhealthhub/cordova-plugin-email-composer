@@ -1,9 +1,9 @@
 
-<p align="left"><b><a href="https://github.com/katzer/cordova-plugin-email-composer/tree/example">SAMPLE APP</a> :point_right:</b></p>
+<p align="left"><b><a href="https://github.com/openhealthhub/cordova-plugin-email-composer/tree/example">SAMPLE APP</a> :point_right:</b></p>
 
-# Cordova Email Plugin <br> [![npm version](https://badge.fury.io/js/cordova-plugin-email-composer.svg)](http://badge.fury.io/js/cordova-plugin-email-composer) [![Code Climate](https://codeclimate.com/github/katzer/cordova-plugin-email-composer/badges/gpa.svg)](https://codeclimate.com/github/katzer/cordova-plugin-email-composer) [![PayPayl donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L3HKQCD9UA35A "Donate once-off to this project using Paypal")
+# Cordova Email Plugin <br> [![npm version](https://badge.fury.io/js/cordova-plugin-email-composer.svg)](http://badge.fury.io/js/cordova-plugin-email-composer) [![Code Climate](https://codeclimate.com/github/openhealthhub/cordova-plugin-email-composer/badges/gpa.svg)](https://codeclimate.com/github/openhealthhub/cordova-plugin-email-composer) [![PayPayl donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L3HKQCD9UA35A "Donate once-off to this project using Paypal")
 
-<img width="260px" align="right" hspace="10" vspace="5" src="https://github.com/katzer/cordova-plugin-email-composer/blob/example/images/ios_iphone5s_spacegrey_portrait.png">
+<img width="260px" align="right" hspace="10" vspace="5" src="https://github.com/openhealthhub/cordova-plugin-email-composer/blob/example/images/ios_iphone5s_spacegrey_portrait.png">
 
 The plugin provides access to the standard interface that manages the editing and sending an email message. You can use this view controller to display a standard email view inside your application and populate the fields of that view with initial values, such as the subject, email recipients, body text, and attachments. The user can edit the initial contents you specify and choose to send the email or cancel the operation.
 
@@ -33,7 +33,7 @@ Or install a specific version:
 
 Or install the latest head version:
 
-    $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
+    $ cordova plugin add https://github.com/openhealthhub/cordova-plugin-email-composer.git
 
 Or install from local source:
 

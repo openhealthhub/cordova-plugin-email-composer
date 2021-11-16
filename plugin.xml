@@ -31,13 +31,13 @@
         the editing and sending an email message
     </description>
 
-    <repo>https://github.com/katzer/cordova-plugin-email-composer.git</repo>
+    <repo>https://github.com/openhealthhub/cordova-plugin-email-composer.git</repo>
 
     <keywords>appplant, email</keywords>
 
     <license>Apache 2.0</license>
 
-    <author>Sebastián Katzer</author>
+    <author>Open HealthHub</author>
 
     <engines>
         <engine name="cordova" version=">=6.0.0"/>
