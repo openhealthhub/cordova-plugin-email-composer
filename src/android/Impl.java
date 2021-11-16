@@ -32,7 +32,6 @@ import android.os.Parcelable;
 import android.text.Html;
 import android.util.Log;
 import android.util.Patterns;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -61,19 +60,19 @@ class Impl {
      *
      * @param ctx The application context.
      */
-    Impl (Context ctx) {
+    Impl(Context ctx) {
         this.ctx = ctx;
     }
 
     /**
      * The intent with the containing email properties.
      *
-     * @param params    The email properties like subject or body.
-     * @return          The resulting intent.
+     * @param params The email properties like subject or body.
+     * @return The resulting intent.
      */
-    Intent getDraft (JSONObject params) {
-        Intent draft  = getFilledEmailIntent(params);
-        String app    = params.optString("app", MAILTO_SCHEME);
+    Intent getDraft(JSONObject params) {
+        Intent draft = getFilledEmailIntent(params);
+        String app = params.optString("app", MAILTO_SCHEME);
         String header = params.optString("chooserHeader", "Open with");
 
         if (!app.equals(MAILTO_SCHEME) && isAppInstalled(app)) {
@@ -87,17 +86,17 @@ class Impl {
             targets.add(target.setPackage(clientId));
         }
 
-        return Intent.createChooser(targets.remove(0), header)
+        return Intent.createChooser(targets.isEmpty() ? getEmailIntent() : targets.remove(0), header)
                 .putExtra(EXTRA_INITIAL_INTENTS, targets.toArray(new Parcelable[0]));
     }
 
     /**
      * The intent with the containing email properties.
      *
-     * @param params    The email properties like subject or body.
-     * @return          The resulting intent.
+     * @param params The email properties like subject or body.
+     * @return The resulting intent.
      */
-    private Intent getFilledEmailIntent (JSONObject params) {
+    private Intent getFilledEmailIntent(JSONObject params) {
         Intent draft = getEmailIntent();
 
         if (params.has("subject"))
@@ -124,10 +123,10 @@ class Impl {
     /**
      * Setter for the subject.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setSubject (JSONObject params, Intent draft) {
+    private void setSubject(JSONObject params, Intent draft) {
         String subject = params.optString("subject");
         draft.putExtra(Intent.EXTRA_SUBJECT, subject);
     }
@@ -135,12 +134,12 @@ class Impl {
     /**
      * Setter for the body.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setBody (JSONObject params, Intent draft) {
-        String body       = fixLineBreaks(params.optString("body"));
-        boolean isHTML    = params.optBoolean("isHtml");
+    private void setBody(JSONObject params, Intent draft) {
+        String body = fixLineBreaks(params.optString("body"));
+        boolean isHTML = params.optBoolean("isHtml");
         CharSequence text = isHTML ? Html.fromHtml(body) : body;
 
         draft.putExtra(Intent.EXTRA_TEXT, text);
@@ -149,46 +148,46 @@ class Impl {
     /**
      * Setter for the recipients.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setRecipients (JSONObject params, Intent draft) {
+    private void setRecipients(JSONObject params, Intent draft) {
         insertRecipients(draft, params, "to", Intent.EXTRA_EMAIL);
     }
 
     /**
      * Setter for the cc recipients.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setCcRecipients (JSONObject params, Intent draft) {
+    private void setCcRecipients(JSONObject params, Intent draft) {
         insertRecipients(draft, params, "cc", Intent.EXTRA_CC);
     }
 
     /**
      * Setter for the bcc recipients.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setBccRecipients (JSONObject params, Intent draft) {
+    private void setBccRecipients(JSONObject params, Intent draft) {
         insertRecipients(draft, params, "bcc", Intent.EXTRA_BCC);
     }
 
     /**
      * Insert the recipients into the email draft intent.
      *
-     * @param draft     The intent to send.
-     * @param params    The email properties like subject or body.
-     * @param key       The key where to find the recipients.
-     * @param extra     The key where to insert the recipients.
+     * @param draft  The intent to send.
+     * @param params The email properties like subject or body.
+     * @param key    The key where to find the recipients.
+     * @param extra  The key where to insert the recipients.
      */
-    private void insertRecipients (Intent draft, JSONObject params,
-                                   String key, String extra) {
+    private void insertRecipients(Intent draft, JSONObject params,
+            String key, String extra) {
 
         JSONArray recipients = params.optJSONArray(key);
-        String[] receivers   = new String[recipients.length()];
+        String[] receivers = new String[recipients.length()];
 
         for (int i = 0; i < recipients.length(); i++) {
             receivers[i] = recipients.optString(i);
@@ -200,13 +199,13 @@ class Impl {
     /**
      * Setter for the attachments.
      *
-     * @param params    The email properties like subject or body.
-     * @param draft     The intent to send.
+     * @param params The email properties like subject or body.
+     * @param draft  The intent to send.
      */
-    private void setAttachments (JSONObject params, Intent draft) {
+    private void setAttachments(JSONObject params, Intent draft) {
         JSONArray attachments = params.optJSONArray("attachments");
-        ArrayList<Uri> uris   = new ArrayList<Uri>();
-        AssetUtil assets      = new AssetUtil(ctx);
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+        AssetUtil assets = new AssetUtil(ctx);
 
         for (int i = 0; i < attachments.length(); i++) {
             Uri uri = assets.parse(attachments.optString(i));
@@ -235,7 +234,7 @@ class Impl {
      */
     @SuppressLint("MissingPermission")
     boolean isEmailAccountConfigured() {
-        AccountManager am  = AccountManager.get(ctx);
+        AccountManager am = AccountManager.get(ctx);
 
         try {
             Pattern emailPattern = Patterns.EMAIL_ADDRESS;
@@ -256,12 +255,13 @@ class Impl {
      * Get the info for all available email client activities.
      */
     private List<ActivityInfo> getEmailClients() {
-        Intent           intent = getEmailIntent();
-        PackageManager       pm = ctx.getPackageManager();
-        List<ResolveInfo>  apps = pm.queryIntentActivities(intent, 0);
+        Intent intent = getEmailIntent();
+        PackageManager pm = ctx.getPackageManager();
+        List<ResolveInfo> apps = pm.queryIntentActivities(intent, 0);
         List<ActivityInfo> list = new ArrayList<>();
 
         for (ResolveInfo app : apps) {
+            Log.i(LOG_TAG, String.format("found sendto mailto app %s, app enabled: %s", app.resolvePackageName, app.activityInfo.enabled));
             if (app.activityInfo.isEnabled()) {
                 list.add(app.activityInfo);
             }
@@ -286,16 +286,15 @@ class Impl {
     /**
      * Ask the package manager if the app is installed on the device.
      *
-     * @param id    The app id.
-     *
+     * @param id The app id.
      * @return true if yes otherwise false.
      */
-    boolean isAppInstalled (String id) {
+    boolean isAppInstalled(String id) {
 
         if (id.equalsIgnoreCase(MAILTO_SCHEME)) {
-            Intent intent     = getEmailIntent();
+            Intent intent = getEmailIntent();
             PackageManager pm = ctx.getPackageManager();
-            int apps          = pm.queryIntentActivities(intent, 0).size();
+            int apps = pm.queryIntentActivities(intent, 0).size();
 
             return (apps > 0);
         }
@@ -327,10 +326,9 @@ class Impl {
      * Fix line breaks within the provided text.
      *
      * @param text The text where to fix the line breaks.
-     *
      * @return The fixed text.
      */
-    private static String fixLineBreaks (String text) {
+    private static String fixLineBreaks(String text) {
         return text.replaceAll("\r\n", "\n");
     }
 
