@@ -261,7 +261,6 @@ class Impl {
         List<ActivityInfo> list = new ArrayList<>();
 
         for (ResolveInfo app : apps) {
-            Log.i(LOG_TAG, String.format("found sendto mailto app %s, app enabled: %s", app.resolvePackageName, app.activityInfo.enabled));
             if (app.activityInfo.isEnabled()) {
                 list.add(app.activityInfo);
             }
