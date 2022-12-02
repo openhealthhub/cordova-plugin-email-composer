@@ -1,3 +1,7 @@
+<h1>:exclamation: Archived, since all our issues have been resolved in the publised version of katzer/cordova-plugin-email-composer :exclamation: </h1>
+
+<br/>
+<br/>
 
 <p align="left"><b><a href="https://github.com/openhealthhub/cordova-plugin-email-composer/tree/example">SAMPLE APP</a> :point_right:</b></p>
 
